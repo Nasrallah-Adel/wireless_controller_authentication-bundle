@@ -15,15 +15,18 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script>
 	function submitAction(){
+
 	      var link = document.location.href;
+				console.log(link);
 	      var searchString = "redirect=";
 	      var equalIndex = link.indexOf(searchString);
 	      var redirectUrl = "";
-
+        console.log("redirect_url "+ document.forms[0].redirect_url);
 	      if (document.forms[0].action == "") {
 	      var url = window.location.href;
 	      var args = new Object();
 	      var query = location.search.substring(1);
+				console.log("query"+query);
 	      var pairs = query.split("&");
 	          for(var i=0;i<pairs.length;i++){
 	              var pos = pairs[i].indexOf('=');
@@ -31,6 +34,7 @@
 	              var argname = pairs[i].substring(0,pos);
 	              var value = pairs[i].substring(pos+1);
 	              args[argname] = unescape(value);
+								console.log(argname+"  "+value)
 	          }
 	          document.forms[0].action = args.switch_url;
 	      }
@@ -39,6 +43,7 @@
 	            redirectUrl = "";
 	            redirectUrl += link.substring(equalIndex);
 	      }
+
 	      if(redirectUrl.length > 255)
 	      redirectUrl = redirectUrl.substring(0,255);
 	      document.forms[0].redirect_url.value = redirectUrl;
@@ -47,10 +52,13 @@
 	}
 
 	function loadAction(){
+
 	     var url = window.location.href;
 	     var args = new Object();
 	     var query = location.search.substring(1);
 	     var pairs = query.split("&");
+			 console.log("url : " + url);
+			 console.log("query"+query);
 	     for(var i=0;i<pairs.length;i++){
 	          var pos = pairs[i].indexOf('=');
 	          if(pos == -1) continue;
@@ -66,24 +74,20 @@
 	     // Any value of status code from 1 to 5 is error condition and user
 	     // should be shown error as below or modify the message as it suits
 	     // the customer
-
+       console.log("statusCode "+args.statusCode);
 	     if(args.statusCode == 1){
 	        alert("You are already logged in. No further action is required on your part.");
 	     }
 	     else if(args.statusCode == 2){
-				 window.location.replace("failed.html");
 	        alert("You are not configured to authenticate against web portal. No further action is required on your part.");
 	     }
 	     else if(args.statusCode == 3){
-				 window.location.replace("failed.html");
 	        alert("The username specified cannot be used at this time. Perhaps the user is already logged into the system?");
 	     }
 	     else if(args.statusCode == 4){
-				 window.location.replace("failed.html");
 	        alert("Wrong username and password. Please try again.");
 	     }
 	     else if(args.statusCode == 5){
-				 window.location.replace("failed.html");
 	        alert("The User Name and Password combination you have entered is invalid.  Please try again.");
 	     }
 	}
@@ -91,18 +95,18 @@
 	</script>
 </head>
 
-<body>
+<body 	onload="loadAction();">
 	<div class="container">
 		<div class="top">
 			<h1 id="title" class="hidden"><span id="logo">Al Ain University </span></h1>
 		</div>
-			<form method="post">
+			<form method="get">
 		<div class="login-box animated fadeInUp">
 			<div class="box-header">
 				<h2>Log In</h2>
 			</div>
 			<input TYPE="hidden" NAME="buttonClicked" SIZE="16" MAXLENGTH="15" value="0">
-			<input TYPE="hidden" NAME="redirect_url" SIZE="255" MAXLENGTH="255" VALUE="www.aau.ac.ae">
+			 <input TYPE="hidden" NAME="redirect_url" SIZE="255" MAXLENGTH="255" VALUE="www.aau.ac.ae">
 			<input TYPE="hidden" NAME="err_flag" SIZE="16" MAXLENGTH="15" value="0">
 			<label for="username">Username</label>
 			<br/>
