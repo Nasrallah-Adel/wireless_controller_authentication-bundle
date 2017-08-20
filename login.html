@@ -71,15 +71,19 @@
 	        alert("You are already logged in. No further action is required on your part.");
 	     }
 	     else if(args.statusCode == 2){
+				 window.location.replace("failed.html");
 	        alert("You are not configured to authenticate against web portal. No further action is required on your part.");
 	     }
 	     else if(args.statusCode == 3){
+				 window.location.replace("failed.html");
 	        alert("The username specified cannot be used at this time. Perhaps the user is already logged into the system?");
 	     }
 	     else if(args.statusCode == 4){
+				 window.location.replace("failed.html");
 	        alert("Wrong username and password. Please try again.");
 	     }
 	     else if(args.statusCode == 5){
+				 window.location.replace("failed.html");
 	        alert("The User Name and Password combination you have entered is invalid.  Please try again.");
 	     }
 	}
@@ -137,7 +141,7 @@
 </script>
 <style>
 body {
-	background: url("https://aau.ac.ae/uploads/editor/source/alain_university_alain_campus.jpg") no-repeat center center fixed;
+	background: url("aau.jpg") no-repeat center center fixed;
 	background-size: cover;
 	font-size: 16px;
 	font-family: 'Lato', sans-serif;
